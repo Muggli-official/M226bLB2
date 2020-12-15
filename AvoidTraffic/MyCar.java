@@ -24,26 +24,96 @@ public class MyCar extends Actor
      */
     private void checkKeyPress()
     {
+        int y = getY();
+        int x = getX();
+        //Variablen evtl. noch ändern
+        if(Greenfoot.isKeyDown("a") && canMoveLeft()) x--;
+        if(Greenfoot.isKeyDown("d") && canMoveRight()) x++;
+        if(Greenfoot.isKeyDown("w") && canMoveUp()) y--;
+        if(Greenfoot.isKeyDown("s") && canMoveDown()) y++;
+        
+        setLocation(x, y);
+        
+        /*
+        //old movement system
+        
         if (Greenfoot.isKeyDown("up")) 
         {
-            setLocation(getX(), getY()-2);
+            setLocation(getX(), getY()-1);
         }
         
         if (Greenfoot.isKeyDown("down")) 
         {
-            setLocation(getX(), getY()+2);
+            setLocation(getX(), getY()+1);
         }
         
         if (Greenfoot.isKeyDown("left")) 
         {
-            setLocation(getX()-4, getY());
+            setLocation(getX()-2, getY());
         }
         
         if (Greenfoot.isKeyDown("right")) 
         {
-            setLocation(getX()+4, getY());
+            setLocation(getX()+2, getY());
         }
+        
+        */
+        
     }
+    
+    
+    
+    public boolean canMoveLeft()
+    {
+        boolean moveLeft=true;
+        
+        int x = getX();
+        
+        if(x<150)moveLeft=false;
+        
+        return moveLeft;
+    }
+    
+    public boolean canMoveRight()
+    {
+        boolean moveRight=true;
+        
+        int x=getX();
+        
+        if(x>450)moveRight=false;
+        
+        return moveRight;
+    }
+    
+    
+    public boolean canMoveUp()
+    {
+        boolean moveUp=true;
+        
+        int y=getY();
+        
+        if(y<0)moveUp=false;
+        
+        return moveUp;
+    }
+    
+    public boolean canMoveDown()
+    {
+        boolean moveDown=true;
+        
+        int y=getY();
+        int worldHeight = 800; // use get method in the future
+        
+        if(y>worldHeight)moveDown=false;
+        
+        return moveDown;
+    }
+    
+    
+    
+    
+    
+    
     
     
     
