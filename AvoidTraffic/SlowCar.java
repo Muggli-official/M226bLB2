@@ -16,8 +16,13 @@ public class SlowCar extends Actor
     {
         setLocation(getX(), getY()+2);
         
-        if (getY() > 820) 
+        if(getY() > 820) 
         {
+            //
+            Street street = (Street)getWorld();
+            street.addScore();
+            
+            
             getWorld().removeObject(this);
         }
     }    

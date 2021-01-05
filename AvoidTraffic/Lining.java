@@ -16,7 +16,7 @@ public class Lining extends Actor
     {
         setLocation(getX(), getY()+3);
         
-        if (getY() > 820) 
+        if(getY() > 820) 
         {
             getWorld().removeObject(this);
         }

@@ -10,6 +10,11 @@ public class Street extends World
 {
 
     private int distancer;
+    private int medianInterval;
+    
+    private int score;
+    private int health;
+    
     
     /**
      * Constructor for objects of class MyWorld.
@@ -20,11 +25,17 @@ public class Street extends World
         // Create a new world with 400x800 cells with a cell size of 1x1 pixels.
         super(600, 800, 1, false);
         
-        
+        prepare();
+        //force player car to the front
+        setPaintOrder(MyCar.class);
         
         distancer = 0;
+        medianInterval = 0;
         
-        prepare();
+        score = 0;
+        health = 100;
+        
+        showStats();
         
     }
     
@@ -34,30 +45,55 @@ public class Street extends World
     public void act()
     {
         
-        int test = Greenfoot.getRandomNumber(99);
+        //SlowCar spawner
+        int spawnfreq = Greenfoot.getRandomNumber(99);
+        int lane = 0;
+        medianInterval ++;
         
-        if(test < 4 && distancer == 0)
+        if(spawnfreq < 4 && distancer == 0)
         {
-            if(test==0) test=150;
-            else if(test==1) test=250;
-            else if(test==2) test=350;
-            else if(test==3) test=450;
+            switch (spawnfreq) {
+                case 0:
+                    lane=150;
+                    break;
+                case 1:
+                    lane=250;
+                    break;
+                case 2:
+                    lane=350;
+                    break;
+                case 3:
+                    lane=450;
+                    break;
+            }
+                    
+            addObject(new SlowCar(), lane, -20);
+            distancer = 50;
             
-            addObject(new SlowCar(), test, -20);
-            distancer = 50; 
         }
         else
         {
             if(distancer != 0) distancer--;
         }
         
-        if (Greenfoot.getRandomNumber(100) < 1)
+        //Median spawner
+        if (medianInterval == 50)
         {
-            addObject(new Lining(), Greenfoot.getRandomNumber(100), -20);
+            addObject(new Median(), 200, -20);
+            addObject(new Median(), 300, -20);
+            addObject(new Median(), 400, -20);
+                        
+            medianInterval = 0;
         }
-        if (Greenfoot.getRandomNumber(100) < 1)
+        
+        //Lining spawner
+        if(Greenfoot.getRandomNumber(99) == 0)
         {
-            addObject(new Lining(), Greenfoot.getRandomNumber(100)+500, -20);
+            addObject(new Lining(), Greenfoot.getRandomNumber(74), -20);
+        }
+        if(Greenfoot.getRandomNumber(99) == 0)
+        {
+            addObject(new Lining(), Greenfoot.getRandomNumber(74)+525, -20);
         }
     }
     
@@ -66,19 +102,36 @@ public class Street extends World
      */
     private void prepare()
     {
-        MyCar mycar = new MyCar();
-        addObject(mycar, 300, 400);
         
         
+        addObject(new MyCar(), 300, 400);
         
         
     }
     
+    /**
+     * add score
+     */
+    public void addScore()
+    {
+        score++;
+        showStats();
+    }
+    
+    /**
+     * display stats
+     */
+    private void showStats()
+    {
+        showText("Overtaken:", 50, 20);
+        showText("" + score, 50, 40);
+        showText("Health:", 50, 60);
+        showText("" + health, 50, 80);
+    }
     
     
-    //probably a few more functions needed to dispaly things like score, health
     
-    
+    //probably a few more functions needed to display things like score, health
     
     /**
      * shows end message
