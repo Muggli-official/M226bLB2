@@ -14,6 +14,16 @@ public class FastCar extends Actor
      */
     public void act() 
     {
-        // Add your action code here.
+        setLocation(getX(), getY()-1);
+        
+        if(getY() < -20) 
+        {
+            //
+            Street street = (Street)getWorld();
+            street.addScore();
+            
+            
+            getWorld().removeObject(this);
+        }
     }    
 }

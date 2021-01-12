@@ -17,6 +17,7 @@ public class MyCar extends Actor
         //
         
         checkKeyPress();
+        checkCollision();
     }    
     
     /**
@@ -109,9 +110,53 @@ public class MyCar extends Actor
         return moveDown;
     }
     
-    
-    
-    
+    private void checkCollision()
+    {
+        Street street = (Street)getWorld(); // create instance of class Street
+        
+        
+        //back right back left front right front left
+        if (getOneObjectAtOffset(15, 50, SlowCar.class) != null || 
+            getOneObjectAtOffset(-15, 50, SlowCar.class) != null||
+            getOneObjectAtOffset(15, -50, SlowCar.class) != null || 
+            getOneObjectAtOffset(-15, -50, SlowCar.class) != null)
+        {street.addHealth(-50);}
+        
+        //back right back left front right front left
+        if (getOneObjectAtOffset(15, 50, FastCar.class) != null || 
+            getOneObjectAtOffset(-15, 50, FastCar.class) != null||
+            getOneObjectAtOffset(15, -50, FastCar.class) != null || 
+            getOneObjectAtOffset(-15, -50, FastCar.class) != null)
+        {street.addHealth(-50);}
+        
+        /*
+        if (isTouching(SlowCar.class))
+        {
+            //Greenfoot.playSound("slurp.wav");
+            
+            
+            Street street = (Street)getWorld();
+            street.addHealth(-50);
+            
+            
+            
+            removeTouching(SlowCar.class);
+        }
+        
+        if (isTouching(FastCar.class))
+        {
+            //Greenfoot.playSound("slurp.wav");
+            
+            
+            Street street = (Street)getWorld();
+            street.addHealth(-50);
+            
+            
+            
+            removeTouching(FastCar.class);
+        }
+        */
+    }
     
     
     
