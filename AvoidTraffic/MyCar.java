@@ -70,7 +70,7 @@ public class MyCar extends Actor
         
         int x = getX();
         
-        if(x<150)moveLeft=false;
+        if(x<125)moveLeft=false;
         
         return moveLeft;
     }
@@ -81,7 +81,7 @@ public class MyCar extends Actor
         
         int x=getX();
         
-        if(x>450)moveRight=false;
+        if(x>475)moveRight=false;
         
         return moveRight;
     }
@@ -120,14 +120,28 @@ public class MyCar extends Actor
             getOneObjectAtOffset(-15, 50, SlowCar.class) != null||
             getOneObjectAtOffset(15, -50, SlowCar.class) != null || 
             getOneObjectAtOffset(-15, -50, SlowCar.class) != null)
-        {street.addHealth(-50);}
+        {
+            removeTouching(SlowCar.class);
+            street.addHealth(-50);
+        }
         
         //back right back left front right front left
         if (getOneObjectAtOffset(15, 50, FastCar.class) != null || 
             getOneObjectAtOffset(-15, 50, FastCar.class) != null||
             getOneObjectAtOffset(15, -50, FastCar.class) != null || 
             getOneObjectAtOffset(-15, -50, FastCar.class) != null)
-        {street.addHealth(-50);}
+        {
+            removeTouching(FastCar.class);
+            street.addHealth(-50);
+        }
+        
+        //upgrade pickup
+        if (isTouching(Upgrade.class))
+        {
+            removeTouching(Upgrade.class);
+            street.addHealth(50);
+        }
+        
         
         /*
         if (isTouching(SlowCar.class))

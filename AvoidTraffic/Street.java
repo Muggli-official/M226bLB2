@@ -27,7 +27,7 @@ public class Street extends World
         
         prepare();
         //force player and other cars to the front
-        setPaintOrder(MyCar.class, SlowCar.class, FastCar.class);
+        setPaintOrder(MyCar.class, SlowCar.class, FastCar.class, Upgrade.class);
         
         distancer = 0;
         medianInterval = 0;
@@ -88,7 +88,7 @@ public class Street extends World
                 break;
         }
         
-        addObject(new SlowCar(), lane, -20);
+        addObject(new SlowCar(), lane, -40);
     }
     
     /**
@@ -110,7 +110,7 @@ public class Street extends World
                 break;
         }
         
-        addObject(new FastCar(), lane, 820);
+        addObject(new FastCar(), lane, 840);
     }
     
     /**
@@ -144,6 +144,21 @@ public class Street extends World
         }
     }
     
+    private void upgradeSpawner()
+    {
+        int side = Greenfoot.getRandomNumber(2);
+        
+        if(side == 0)
+        {
+            addObject(new Upgrade(), 150, -20);
+        }
+        if(side == 1)
+        {
+            addObject(new Upgrade(), 450, -20);
+        }
+        
+    }
+    
     
     
     /**
@@ -163,6 +178,11 @@ public class Street extends World
     {
         score++;
         showStats();
+        
+        if (score%3 == 0)
+        {
+            upgradeSpawner();
+        }
     }
     
     /**
@@ -199,7 +219,9 @@ public class Street extends World
     private void showEndMessage()
     {
         showText("GAME OVER", 300, 400);
-    
+        
+        showText("Overtaken:", 300, 450);
+        showText("" + score, 300, 500);
     }
     
 }

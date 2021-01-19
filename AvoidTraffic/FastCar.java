@@ -16,7 +16,7 @@ public class FastCar extends Actor
     {
         setLocation(getX(), getY()-1);
         
-        if(getY() < -20) 
+        if(getY() < -40) 
         {
             //
             Street street = (Street)getWorld();
