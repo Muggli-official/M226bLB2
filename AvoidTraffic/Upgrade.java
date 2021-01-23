@@ -8,6 +8,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Upgrade extends Actor
 {
+    private boolean type;
+    
+    /**
+     * Custom Constructor
+     */
+    public Upgrade(boolean state)
+    {
+        
+        if(state)
+        {
+            setImage(new GreenfootImage("ammo.png"));
+            type = true;
+        }
+        else
+        {
+        type = false;
+        }
+    }
+    
     /**
      * Act - do whatever the Upgrade wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -22,5 +41,30 @@ public class Upgrade extends Actor
             
             getWorld().removeObject(this);
         }
-    }    
+        else
+        {
+        checkPickUp();
+        }
+    }
+    
+    private void checkPickUp()
+    {
+        if (isTouching(MyCar.class))
+        {
+            Street street = (Street)getWorld();
+            
+            getWorld().removeObject(this);
+            if(type)
+            {
+            street.addAmmo(50);
+            }
+            else
+            {
+            street.addHealth(50);
+            }
+        }
+    }
+    
+    
+    
 }

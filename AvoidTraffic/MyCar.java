@@ -25,13 +25,15 @@ public class MyCar extends Actor
      */
     private void checkKeyPress()
     {
-        int y = getY();
         int x = getX();
+        int y = getY();
+        
         //Variablen evtl. noch ändern
         if(Greenfoot.isKeyDown("a") && canMoveLeft()) x--;
         if(Greenfoot.isKeyDown("d") && canMoveRight()) x++;
         if(Greenfoot.isKeyDown("w") && canMoveUp()) y--;
         if(Greenfoot.isKeyDown("s") && canMoveDown()) y++;
+        if(Greenfoot.isKeyDown("space")) trigger();
         
         setLocation(x, y);
         
@@ -136,12 +138,13 @@ public class MyCar extends Actor
         }
         
         //upgrade pickup
+        /*
         if (isTouching(Upgrade.class))
         {
             removeTouching(Upgrade.class);
             street.addHealth(50);
         }
-        
+        */
         
         /*
         if (isTouching(SlowCar.class))
@@ -172,8 +175,18 @@ public class MyCar extends Actor
         */
     }
     
-    
-    
+    /**
+     * 
+     */
+    private void trigger()
+    {
+        //if(ammo > 0)
+        
+        Street street = (Street)getWorld();
+        
+        street.bulletSpawner(getX(), getY());
+        
+    }
     
     
     

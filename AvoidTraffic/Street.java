@@ -14,7 +14,8 @@ public class Street extends World
     
     private int score;
     private int health;
-    
+    private int ammo;
+    private int reloadInterval;
     
     /**
      * Constructor for objects of class MyWorld.
@@ -27,13 +28,15 @@ public class Street extends World
         
         prepare();
         //force player and other cars to the front
-        setPaintOrder(MyCar.class, SlowCar.class, FastCar.class, Upgrade.class);
+        setPaintOrder(MyCar.class, SlowCar.class, FastCar.class, Bullet.class ,Upgrade.class);
         
         distancer = 0;
         medianInterval = 0;
         
         score = 0;
         health = 100;
+        ammo = 57;
+        reloadInterval = 0;
         
         showStats();
         
@@ -64,6 +67,8 @@ public class Street extends World
         medianSpawner();
         
         liningSpawner();
+        
+        if(reloadInterval != 0) reloadInterval--;
     }
     
     /**
@@ -146,15 +151,16 @@ public class Street extends World
     
     private void upgradeSpawner()
     {
-        int side = Greenfoot.getRandomNumber(2);
+        boolean side = Greenfoot.getRandomNumber(100)<50;
+        boolean type = Greenfoot.getRandomNumber(100)<50;
         
-        if(side == 0)
+        if(side)
         {
-            addObject(new Upgrade(), 150, -20);
+            addObject(new Upgrade(type), 150, -20);
         }
-        if(side == 1)
+        else
         {
-            addObject(new Upgrade(), 450, -20);
+            addObject(new Upgrade(type), 450, -20);
         }
         
     }
@@ -203,6 +209,15 @@ public class Street extends World
     }
     
     /**
+     * add ammo
+     */
+    public void addAmmo(int bullets)
+    {
+        ammo = ammo + bullets;
+        showStats();
+    }
+    
+    /**
      * display stats
      */
     private void showStats()
@@ -211,6 +226,9 @@ public class Street extends World
         showText("" + score, 50, 40);
         showText("Health:", 50, 60);
         showText("" + health, 50, 80);
+        showText("Ammo:", 50, 100);
+        showText("" + ammo, 50, 120);
+        
     }
     
     /**
@@ -222,6 +240,22 @@ public class Street extends World
         
         showText("Overtaken:", 300, 450);
         showText("" + score, 300, 500);
+    }
+    
+    /**
+     * fire
+     */
+    public void bulletSpawner(int x, int y)
+    {
+        if(ammo > 0 && reloadInterval == 0)
+        {
+        
+        addObject(new Bullet(), x, y);
+        
+        ammo--;
+        showStats();
+        reloadInterval = 50;
+        }
     }
     
 }
