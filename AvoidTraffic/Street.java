@@ -34,6 +34,8 @@ public class Street extends World
         reloadInterval = 0;
         
         prepare(); //spawn MyCar and stats
+        
+        Greenfoot.start(); //auto start
     }
     /**
      * spawn everything needed in somewhat random intervals
@@ -201,6 +203,8 @@ public class Street extends World
      * show end message
      */
     private void showEndMessage(){
+        Greenfoot.playSound("game-over.wav"); // Sound
+        
         //display MSG, reached score
         showText("GAME OVER", 300, 400);
         showText("Overtaken:", 300, 450);

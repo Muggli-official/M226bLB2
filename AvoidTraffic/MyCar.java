@@ -85,17 +85,17 @@ public class MyCar extends Actor
     private void checkCollision(){
         Street street = (Street)getWorld(); //create instance of Street
         //check back right, back left, front right, front left
-        if (getOneObjectAtOffset(15, 50, SlowCar.class) != null || 
-            getOneObjectAtOffset(-15, 50, SlowCar.class) != null||
-            getOneObjectAtOffset(15, -50, SlowCar.class) != null || 
-            getOneObjectAtOffset(-15, -50, SlowCar.class) != null){
+        if (getOneObjectAtOffset(20, 50, SlowCar.class) != null || 
+            getOneObjectAtOffset(-20, 50, SlowCar.class) != null||
+            getOneObjectAtOffset(20, -50, SlowCar.class) != null || 
+            getOneObjectAtOffset(-20, -50, SlowCar.class) != null){
             removeTouching(SlowCar.class); //remove touching SlowCar
             street.addHealth(-50);} //call addHealth to update health count
         //check back right, back left, front right, front left
-        if (getOneObjectAtOffset(15, 50, FastCar.class) != null || 
-            getOneObjectAtOffset(-15, 50, FastCar.class) != null||
-            getOneObjectAtOffset(15, -50, FastCar.class) != null || 
-            getOneObjectAtOffset(-15, -50, FastCar.class) != null){
+        if (getOneObjectAtOffset(20, 50, FastCar.class) != null || 
+            getOneObjectAtOffset(-20, 50, FastCar.class) != null||
+            getOneObjectAtOffset(20, -50, FastCar.class) != null || 
+            getOneObjectAtOffset(-20, -50, FastCar.class) != null){
             removeTouching(FastCar.class); //remove touching FastCar
             street.addHealth(-50);} //call addHealth to update health count
     }
